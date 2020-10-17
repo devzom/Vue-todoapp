@@ -6,6 +6,9 @@
 -- reactive count for finished / unfinished tasks
 -- :D minimalist design with icons
 
+
+[![Netlify Status](https://api.netlify.com/api/v1/badges/dde9ef59-7b81-4e39-acf6-aabb8308ce96/deploy-status)](https://app.netlify.com/sites/sad-benz-24b6c5/deploys)
+
 ##### Screenshot
 
 ![Alt text](screenshot.png?raw=true "Screenshot of the app")
