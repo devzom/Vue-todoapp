@@ -1,6 +1,8 @@
 <template>
-	<div class="heroSection row justify-content-center mt-5">
-		<h1>{{ welcomeMessage }}</h1>
+	<div class="heroSection container mt-3">
+		<div class="row justify-content-center">
+			<h1>{{ welcomeMessage }}</h1>
+		</div>
 	</div>
 </template>
 

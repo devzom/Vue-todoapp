@@ -1,5 +1,5 @@
 <template>
-	<div id="nav" class="">
+	<div id="nav" class="container">
 		<router-link to="/">Home</router-link> |
 		<router-link to="/about">About</router-link>
 	</div>
@@ -13,7 +13,7 @@
 
 <style scoped>
 	#nav {
-		padding: 50px;
+		padding: 30px;
 	}
 
 	#nav a {

@@ -1,21 +1,23 @@
 <template>
-	<div class="row align-content-center justify-content-center mt-5 todo">
-		<div class="col-12 justify-content-end">
+	<div class="container align-content-center justify-content-center mt-5 todo">
+		<div class="row mb-4">
 			<TodoAddForm v-on:add-todo="addNewTodo" />
 		</div>
-		<div class="col-4 border-right todo__title mt-5">
-			<h4><b-icon icon="list-task"></b-icon> Things to do:</h4>
-			<div class="todo__statistic pt-4">
-				<p class="text-danger">To do: {{ undoneTodo }}</p>
-				<p class="text-success">Done: {{ doneTodo }}</p>
+		<div class="row">
+			<div class="col-4 border-right todo__title mt-5">
+				<h4><b-icon icon="list-task"></b-icon> Things to do:</h4>
+				<div class="todo__statistic pt-4">
+					<p class="text-danger">To do: {{ undoneTodo }}</p>
+					<p class="text-success">Done: {{ doneTodo }}</p>
+				</div>
 			</div>
-		</div>
-		<div class="col-8 text-left mt-5">
-			<ul>
-				<li class="todo__item" :class="{ 'todo__item--done': todo.status == 1 }" v-for="todo in dataList" :key="todo.id">
-					<TodoItem :todo="todo" v-on:del-todo="deleteTodo" v-on:toggle-todo="countTodos" />
-				</li>
-			</ul>
+			<div class="col-8 text-left mt-5 todo__itemsContainer">
+				<ul>
+					<li class="todo__item" :class="{ 'todo__item--done': todo.status == 1 }" v-for="todo in sortTodoItems" :key="todo.id">
+						<TodoItem :todo="todo" v-on:del-todo="deleteTodo" v-on:toggle-todo="countTodos" />
+					</li>
+				</ul>
+			</div>
 		</div>
 	</div>
 </template>
@@ -40,7 +42,6 @@
 		methods: {
 			countTodos() {
 				this.undoneTodo = this.dataList.filter((todo) => todo.status == 0).length;
-
 				this.doneTodo = this.dataList.filter((todo) => todo.status == 1).length;
 			},
 			addNewTodo(newTodoItem) {
@@ -51,7 +52,6 @@
 				// first delete selected item and then count the list again
 				this.dataList = this.dataList.filter((todo) => todo.id !== id);
 				this.countTodos();
-				console.log("TodoItem was deleted and list recounted!");
 			},
 		},
 		created() {
@@ -65,11 +65,14 @@
 		mounted() {
 			this.countTodos();
 		},
-		// computed: {
-		// 	taskDone: function() {
-		// 		return (this.doneTodo = this.dataList.filter((todo) => todo.status === 1).length);
-		// 	},
-		// },
+		computed: {
+			sortTodoItems: function() {
+				return this.dataList.slice().sort(function(a, b) {
+					//reverse id sorting => 4,3,2,1
+					return a.id < b.id ? 1 : -1;
+				});
+			},
+		},
 	};
 </script>
 
@@ -83,6 +86,11 @@
 
 		&__list {
 			padding-top: 20px;
+		}
+
+		&__itemsContainer {
+			max-height: 50vh;
+			overflow-y: auto;
 		}
 
 		&__item {
